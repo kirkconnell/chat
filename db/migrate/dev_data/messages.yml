@@ -1,0 +1,20 @@
+first:
+  body: first!!!!
+  folk_id: 1
+  room_id: 1
+  
+second:
+  body: ahh.. you beat me :(
+  folk_id: 2
+  room_id: 1
+  
+third:
+  body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  folk_id: 3
+  room_id: 1
+  
+fourth:
+  body: "Yo fred, I'm very happy for you and I'm gonna let you finish, but beyonce had one of the best videos o all time! Of all time!"
+  folk_id: 4
+  room_id: 1
+  

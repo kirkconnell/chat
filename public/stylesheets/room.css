@@ -1,0 +1,30 @@
+/* General */
+.red{
+	color: red;
+}
+
+#messages{
+	width: 75%;
+}
+
+#messages table{
+	border: 2px solid #999;
+	padding: 5px;
+}
+
+.folk_name{
+	font-weight: bold;
+	font-size: 1.2em;
+	vertical-align: top;
+}
+
+.folk_message{
+	padding: 0px 0px 5px 5px;
+}
+
+/* Side Bar */
+
+#folks{
+	float: right;
+	width: 20%;
+}

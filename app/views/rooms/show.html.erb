@@ -1,8 +1,13 @@
-<p>
-  <b>Name:</b>
-  <%=h @room.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+<h1>Hello <span class="red"><%= @folk.name %></span>.</h1>
+<h2>Welcome to the <span class="red">"<%= @room.name %>"</span> room!</h2>
+<div id="folks">
+	<h3>Folks Here</h3>
+	<ul>
+		<%= render :partial => 'folk', :collection => @room.folks %>
+	</ul>
+</div>
+<div id="messages">
+	<table>
+	<%= render :partial => 'message', :collection => @room.messages %>
+	</table>
+</div>
