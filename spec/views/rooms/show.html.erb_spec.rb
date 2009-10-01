@@ -9,6 +9,7 @@ describe "/rooms/show.html.erb" do
     assigns[:folk] = @folk = stub_model(Folk,
       :name => "Carlos"
     )
+    assigns[:message] = Message.new
   end
 
   it "renders the room's name" do

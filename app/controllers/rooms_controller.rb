@@ -16,6 +16,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @folk = Folk.find(params[:folk])
+    @message = Message.new(:room_id => @room.id, :folk_id => @folk.id)
 
     respond_to do |format|
       format.html # show.html.erb

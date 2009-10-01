@@ -28,13 +28,28 @@ describe RoomsController do
   end
 
   describe "GET show" do
-    it "assigns the requested room as @room" do
-      Room.stub!(:find).with("37").and_return(mock_room)
-      Folk.stub!(:find).with("7").and_return(mock_current_folk)
+    
+    before(:each) do
+      Room.stub!(:find).with("37").and_return(mock_room(:id => 37))
+      Folk.stub!(:find).with("7").and_return(mock_current_folk(:id => 7))
       get :show, :id => "37", :folk => "7"
+    end
+    
+    it "assigns the selected room to @room" do
       assigns[:room].should equal(mock_room)
+    end
+    
+    it "assigns the current folk to @folk" do
       assigns[:folk].should equal(mock_current_folk)
     end
+    
+    it "assigns an empty message ready to be filled to @message" do
+      assigns[:message].should be_instance_of(Message)
+      assigns[:message].room_id.should == mock_room.id
+      assigns[:message].folk_id.should == mock_current_folk.id
+      assigns[:message].should be_new_record
+    end
+    
   end
 
 

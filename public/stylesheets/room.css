@@ -3,6 +3,10 @@
 	color: red;
 }
 
+textarea {
+	font-size: 1.2em;
+}
+
 #messages{
 	width: 75%;
 }
@@ -27,4 +31,22 @@
 #folks{
 	float: right;
 	width: 20%;
+}
+
+/* Post Message Form */
+#new_post{
+	width: 75%;
+	padding-top: 5px;
+}
+
+#new_post table{
+	width: 100%;
+}
+
+#new_post table textarea{
+	width: 100%;
+}
+
+#new_post table input{
+	float:right;
 }

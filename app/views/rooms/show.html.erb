@@ -11,3 +11,15 @@
 	<%= render :partial => 'message', :collection => @room.messages %>
 	</table>
 </div>
+<div id="new_post">
+<% remote_form_for(@message, :complete => "$('message_body').value = ''") do |f| %>
+	<table>
+		<tr>
+			<td width="100%"><%= f.text_area :body, :rows => 3 %></td>
+			<td><%= f.submit "Send"%></td>
+		</tr>
+	</table>
+	<%= f.hidden_field :room_id %>
+	<%= f.hidden_field :folk_id %>
+<% end %>
+</div>
