@@ -1,0 +1,6 @@
+if looking_for_latest_messages? and !@messages.nil?
+  @messages.each do |message|
+    page.insert_html :bottom, 'message_table', :partial => "/rooms/message", :object => message
+    page.visual_effect :highlight, "message_#{message.id}"
+  end
+end

@@ -1,19 +1,15 @@
 dave:
   id: 1
   name: Dave
-  room_id: 1
   
 mike:
   id: 2
   name: Mike
-  room_id: 1
   
 fred:
   id: 3
   name: Fred
-  room_id: 1
   
 carlos:
   id: 4
   name: carlosk
-  room_id: 1

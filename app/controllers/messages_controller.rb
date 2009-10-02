@@ -2,11 +2,14 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def index
-    @messages = Message.all
-
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml => @messages }
+    if params[:room_id].nil?
+      @messages = Message.all
+      respond_to do |format|
+        format.html
+        format.xml  { render :xml => @messages }
+      end
+    else
+      @messages = Message.find_latest(params[:room_id], params[:folk_id])
     end
   end
 
@@ -27,7 +30,6 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        flash[:notice] = 'Message was successfully created.'
         format.xml  { render :xml => @message, :status => :created, :location => @message }
       else
         format.xml  { render :xml => @message.errors, :status => :unprocessable_entity }

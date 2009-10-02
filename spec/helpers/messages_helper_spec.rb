@@ -2,10 +2,17 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe MessagesHelper do
 
-  #Delete this example and add some real ones or delete this file
-  it "is included in the helper object" do
-    included_modules = (class << helper; self; end).send :included_modules
-    included_modules.should include(MessagesHelper)
+  it "tells me if I'm looking for latest messages" do
+    params[:folk_id] = "7"
+    params[:room_id] = "37"
+    
+    helper.should be_looking_for_latest_messages
+  end
+  
+  it "tells me when I'm not looking for latest messages" do
+    params[:room_id] = "37"
+    
+    helper.should_not be_looking_for_latest_messages
   end
 
 end

@@ -7,13 +7,13 @@
 	</ul>
 </div>
 <div id="messages">
-	<table>
+	<table id="message_table">
 	<%= render :partial => 'message', :collection => @room.messages %>
 	</table>
 </div>
 <div id="new_post">
 <% remote_form_for(@message, :complete => "$('message_body').value = ''") do |f| %>
-	<table>
+	<table width="100%">
 		<tr>
 			<td width="100%"><%= f.text_area :body, :rows => 3 %></td>
 			<td><%= f.submit "Send"%></td>
@@ -23,3 +23,6 @@
 	<%= f.hidden_field :folk_id %>
 <% end %>
 </div>
+<%= periodically_call_remote(	:url => [messages_path, "?room_id=", @room.id, "&folk_id=", @folk.id].join,
+ 															:method => "get",
+															:frequency => 1 ) %>

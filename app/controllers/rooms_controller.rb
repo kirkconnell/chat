@@ -17,6 +17,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @folk = Folk.find(params[:folk])
     @message = Message.new(:room_id => @room.id, :folk_id => @folk.id)
+    HeartBeat.find_or_create_by_folk_id_and_room_id(params[:folk], params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

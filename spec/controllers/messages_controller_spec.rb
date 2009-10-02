@@ -5,13 +5,20 @@ describe MessagesController do
   def mock_message(stubs={})
     @mock_message ||= mock_model(Message, stubs)
   end
-
+  
   describe "GET index" do
     it "assigns all messages as @messages" do
       Message.stub!(:find).with(:all).and_return([mock_message])
       get :index
       assigns[:messages].should == [mock_message]
     end
+    
+    it "gets latest messages for room and folk" do
+      Message.stub!(:find_latest).with("37", "7").and_return([mock_message(:id => "37")])
+      get :index, :room_id => "37", :folk_id => "7"
+      assigns[:messages].should == [mock_message]
+    end
+    
   end
 
   describe "GET show" do
