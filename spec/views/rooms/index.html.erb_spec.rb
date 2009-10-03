@@ -12,6 +12,7 @@ describe "/rooms/index.html.erb" do
         :name => "value for name"
       )
     ]
+    assigns[:folk] = stub_model(Folk, :id => 1)
   end
 
   it "renders a list of rooms" do

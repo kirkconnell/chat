@@ -12,7 +12,7 @@ describe Folk do
   end
   
   it "should not create a new instance with empty name" do
-    Folk.create(:name => nil).should == false
+    Folk.create(:name => nil).should_not be_valid
   end
   
 end

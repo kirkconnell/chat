@@ -27,14 +27,14 @@ describe FolksController do
     describe "with valid params" do
       it "assigns a newly created folk as @folk" do
         Folk.stub!(:find_or_create_by_name).with('folk_name').and_return(mock_folk(:valid? => true))
-        post :create, :folk => {:name => 'params'}
+        post :create, :folk => {:name => 'folk_name'}
         assigns[:folk].should equal(mock_folk)
       end
 
       it "redirects to the chat room lobbie" do
-        Folk.stub!(:find_or_create_by_name).and_return(mock_folk(:valid? => true))
-        post :create, :folk => {}
-        response.should redirect_to(rooms_url)
+        Folk.stub!(:find_or_create_by_name).and_return(mock_folk(:valid? => true, :id => 1))
+        post :create, :folk => {:name => "folk"}
+        response.should redirect_to(rooms_url + "?folk=1")
       end
     end
 
@@ -46,8 +46,9 @@ describe FolksController do
       end
 
       it "re-renders the 'new' template" do
+        Folk.stub!(:find_or_create_by_name).with('').and_return(mock_folk(:valid? => false))
         Folk.stub!(:new).and_return(mock_folk(:valid? => false))
-        post :create, :folk => {}
+        post :create, :folk => {:name => ''}
         response.should render_template('new')
       end
     end

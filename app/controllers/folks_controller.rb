@@ -38,7 +38,7 @@ class FolksController < ApplicationController
     respond_to do |format|
       if @folk.valid?
         flash[:notice] = 'Folk was successfully created.'
-        format.html { redirect_to(rooms_url) }
+        format.html { redirect_to(rooms_url + "?folk=#{@folk.id}") }
         format.xml  { render :xml => @folk, :status => :created, :location => @folk }
       else
         format.html { render :action => "new" }
