@@ -9,22 +9,20 @@ describe RoomsController do
   def mock_current_folk(stubs={})
     @mock_current_folk ||= mock_model(Folk, stubs)
   end
-  
-  def mock_heart_beat(stubs={})
-    @mock_heart_beat ||= mock_model(HeartBeat, stubs)
-  end
 
   describe "GET index" do
+    before(:each) do
+      Folk.stub!(:find).with("7").and_return(mock_current_folk)
+    end
+    
     it "assigns all rooms as @rooms" do
       Room.stub!(:find).with(:all).and_return([mock_room])
-      Folk.stub!(:find).with("7").and_return(mock_current_folk)
       
       get :index, :folk => "7"
       assigns[:rooms].should == [mock_room]
     end
     
     it "assigns current folk as @folk" do
-      Folk.stub!(:find).with("7").and_return(mock_current_folk)
       get :index, :folk => "7"
       assigns[:folk].should equal(mock_current_folk)
     end
@@ -32,10 +30,16 @@ describe RoomsController do
   end
 
   describe "GET show" do
+
+    def mock_heart_beat(stubs={})
+      @mock_heart_beat ||= mock_model(HeartBeat, stubs)
+    end
     
     before(:each) do
       Room.stub!(:find).with("37").and_return(mock_room(:id => 37))
       Folk.stub!(:find).with("7").and_return(mock_current_folk(:id => 7))
+      mock_room.stub!(:online_folks_ids).and_return([7])
+      mock_heart_beat.stub!(:touch).and_return(true)
     end
     
     it "assigns the selected room to @room" do
@@ -60,6 +64,11 @@ describe RoomsController do
       HeartBeat.stub!(:find_or_create_by_folk_id_and_room_id).with("7", "37").and_return(mock_heart_beat)
       HeartBeat.should_receive(:find_or_create_by_folk_id_and_room_id).with("7", "37").and_return(mock_heart_beat)
       get :show, :id => "37", :folk => "7"
+    end
+    
+    it "stores in the session the online folks" do
+      get :show, :id => "37", :folk => "7"
+      session[:online].should == [7]
     end
     
   end

@@ -10,4 +10,10 @@ describe Room do
   it "should create a new instance given valid attributes" do
     Room.create!(@valid_attributes)
   end
+  
+  it "should find the ids of the online folks" do
+    room = Room.new
+    room.online_folks_ids.should_not be_nil
+  end
+  
 end

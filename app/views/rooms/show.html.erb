@@ -2,8 +2,8 @@
 <h2>Welcome to the <span class="red">"<%= @room.name %>"</span> room!</h2>
 <div id="folks">
 	<h3>Folks Here</h3>
-	<ul>
-		<%= render :partial => 'folk', :collection => @room.folks %>
+	<ul id="folk_list">
+		<%= render :partial => 'folk', :collection => @room.online_folks %>
 	</ul>
 </div>
 <div id="messages">

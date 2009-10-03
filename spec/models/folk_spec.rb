@@ -10,4 +10,9 @@ describe Folk do
   it "should create a new instance given valid attributes" do
     Folk.create!(@valid_attributes)
   end
+  
+  it "should not create a new instance with empty name" do
+    Folk.create(:name => nil).should == false
+  end
+  
 end

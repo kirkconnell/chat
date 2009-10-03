@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
         format.xml  { render :xml => @messages }
       end
     else
+      @room = Room.find params[:room_id]
       @messages = Message.find_latest(params[:room_id], params[:folk_id])
     end
   end

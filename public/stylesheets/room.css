@@ -26,6 +26,11 @@ textarea {
 	padding: 0px 0px 5px 5px;
 }
 
+.notification{
+	font-style: italic;
+	padding: 0px 0px 5px 5px;
+}
+
 /* Side Bar */
 
 #folks{

@@ -5,7 +5,6 @@ class FolksController < ApplicationController
     @folks = Folk.all
 
     respond_to do |format|
-      format.html # index.html.erb
       format.xml  { render :xml => @folks }
     end
   end
@@ -16,7 +15,6 @@ class FolksController < ApplicationController
     @folk = Folk.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
       format.xml  { render :xml => @folk }
     end
   end
@@ -32,20 +30,15 @@ class FolksController < ApplicationController
     end
   end
 
-  # GET /folks/1/edit
-  def edit
-    @folk = Folk.find(params[:id])
-  end
-
   # POST /folks
   # POST /folks.xml
   def create
-    @folk = Folk.new(params[:folk])
+    @folk = Folk.find_or_create_by_name(params[:folk][:name])
 
     respond_to do |format|
-      if @folk.save
+      if @folk.valid?
         flash[:notice] = 'Folk was successfully created.'
-        format.html { redirect_to(@folk) }
+        format.html { redirect_to(rooms_url) }
         format.xml  { render :xml => @folk, :status => :created, :location => @folk }
       else
         format.html { render :action => "new" }
@@ -62,10 +55,8 @@ class FolksController < ApplicationController
     respond_to do |format|
       if @folk.update_attributes(params[:folk])
         flash[:notice] = 'Folk was successfully updated.'
-        format.html { redirect_to(@folk) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
         format.xml  { render :xml => @folk.errors, :status => :unprocessable_entity }
       end
     end
@@ -78,7 +69,6 @@ class FolksController < ApplicationController
     @folk.destroy
 
     respond_to do |format|
-      format.html { redirect_to(folks_url) }
       format.xml  { head :ok }
     end
   end

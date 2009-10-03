@@ -1,6 +1,31 @@
-if looking_for_latest_messages? and !@messages.nil?
-  @messages.each do |message|
-    page.insert_html :bottom, 'message_table', :partial => "/rooms/message", :object => message
-    page.visual_effect :highlight, "message_#{message.id}"
+if looking_for_latest_messages?
+  
+  unless @messages.nil?
+    @messages.each do |message|
+      page.insert_html :bottom, 'message_table', :partial => "/rooms/message", :object => message
+      page.visual_effect :highlight, "message_#{message.id}"
+    end
   end
+  
+  if new_folks_joined?
+    new_folks = Folk.find(new_folks_ids)
+    new_folks.each do |folk|
+      page.insert_html :bottom, "folk_list", :partial => "/rooms/folk", :object => folk
+      page.visual_effect :highlight, "folk_#{folk.id}"
+      
+      post_notification_to page, "#{folk.name} just joined the room!"
+    end
+  end
+  
+  if some_folks_left?
+    deserters = Folk.find(deserter_folks_ids)
+    deserters.each do |folk|
+      page.visual_effect :fade, "folk_#{folk.id}"
+      
+      post_notification_to page, "#{folk.name} just left the room!"
+    end
+  end
+  
+  session[:online] = @room.online_folks_ids
+  
 end
