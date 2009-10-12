@@ -3,7 +3,8 @@ class RoomsController < ApplicationController
   # GET /rooms.xml
   def index
     @rooms = Room.all
-    @folk = Folk.find(params[:folk])
+    @folk = Folk.find(params[:folk]) 
+    @new_room = Room.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -31,14 +32,13 @@ class RoomsController < ApplicationController
   # POST /rooms.xml
   def create
     @room = Room.new(params[:room])
+    @folk = Folk.find params[:folk]
 
     respond_to do |format|
       if @room.save
-        flash[:notice] = 'Room was successfully created.'
-        format.html { redirect_to(@room) }
+        format.html #{ render :nothing => true }
         format.xml  { render :xml => @room, :status => :created, :location => @room }
       else
-        format.html { render :action => "new" }
         format.xml  { render :xml => @room.errors, :status => :unprocessable_entity }
       end
     end
@@ -51,7 +51,7 @@ class RoomsController < ApplicationController
     @room.destroy
 
     respond_to do |format|
-      format.html { redirect_to(rooms_url) }
+      format.html { render :nothing => true }
       format.xml  { head :ok }
     end
   end

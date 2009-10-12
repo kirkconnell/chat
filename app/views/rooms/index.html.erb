@@ -1,18 +1,13 @@
 <h1>Chat Room Lobby</h1>
 
-<table>
-  <tr>
-    <th>Pick a Room to Join</th>
-  </tr>
-
-<% @rooms.each do |room| %>
-  <tr>
-    <td><%= link_to room.name, room_url(room) + "?folk=#{@folk.id}" %></td>
-    <td><%= link_to 'Destroy', room, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<h3>Pick a Room to Join</h3>
+<table id="room_list">
+<%= render :partial => 'room', :collection => @rooms, :locals => {:folk => @folk} %>
 </table>
 
 <br />
 <h3>Or create a new one...</h3>
-<%= link_to 'New room', new_room_path %>
+<% remote_form_for(@new_room) do |f| %>
+	<%= f.text_field :name %> <%= f.submit "Create New Room" %>
+	<%= hidden_field_tag :folk, @folk.id  %>
+<% end %>

@@ -13,10 +13,12 @@ describe "/rooms/index.html.erb" do
       )
     ]
     assigns[:folk] = stub_model(Folk, :id => 1)
+    assigns[:new_room] = Room.new
   end
-
-  it "renders a list of rooms" do
+  
+  it "renders a create room form" do
     render
-    response.should have_tag("tr>td", "value for name".to_s, 2)
+    response.should have_tag("form")
   end
+  
 end

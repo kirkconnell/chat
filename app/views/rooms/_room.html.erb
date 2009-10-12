@@ -1,0 +1,7 @@
+<tr id="room_<%= room.id %>">
+	<td><%= link_to room.name, room_url(room) + "?folk=#{folk.id}" %></td>
+	<td><%= link_to_remote 'Remove', 	:url => room_path(room), 
+																		:confirm => 'Are you sure?', 
+																		:method => :delete,
+																		:complete => visual_effect(:fade, "room_#{room.id}") %></td>
+</tr>

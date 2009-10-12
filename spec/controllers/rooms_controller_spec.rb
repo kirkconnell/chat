@@ -27,6 +27,11 @@ describe RoomsController do
       assigns[:folk].should equal(mock_current_folk)
     end
     
+    it "assigns new room template as @new_room" do
+      get :index, :folk => "7"
+      assigns[:new_room].should_not be_nil
+    end
+    
   end
 
   describe "GET show" do
@@ -75,32 +80,24 @@ describe RoomsController do
 
 
   describe "POST create" do
+    
+    before(:each) do
+      Folk.stub!(:find).with("7").and_return(mock_current_folk)
+    end
 
     describe "with valid params" do
       it "assigns a newly created room as @room" do
         Room.stub!(:new).with({'these' => 'params'}).and_return(mock_room(:save => true))
-        post :create, :room => {:these => 'params'}
+        post :create, :room => {:these => 'params'}, :folk => "7"
         assigns[:room].should equal(mock_room)
-      end
-
-      it "redirects to the created room" do
-        Room.stub!(:new).and_return(mock_room(:save => true))
-        post :create, :room => {}
-        response.should redirect_to(room_url(mock_room))
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved room as @room" do
         Room.stub!(:new).with({'these' => 'params'}).and_return(mock_room(:save => false))
-        post :create, :room => {:these => 'params'}
+        post :create, :room => {:these => 'params'}, :folk => "7"
         assigns[:room].should equal(mock_room)
-      end
-
-      it "re-renders the 'new' template" do
-        Room.stub!(:new).and_return(mock_room(:save => false))
-        post :create, :room => {}
-        response.should render_template('new')
       end
     end
 
@@ -111,12 +108,6 @@ describe RoomsController do
       Room.should_receive(:find).with("37").and_return(mock_room)
       mock_room.should_receive(:destroy)
       delete :destroy, :id => "37"
-    end
-
-    it "redirects to the rooms list" do
-      Room.stub!(:find).and_return(mock_room(:destroy => true))
-      delete :destroy, :id => "1"
-      response.should redirect_to(rooms_url)
     end
   end
 

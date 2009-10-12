@@ -1,0 +1,3 @@
+page.insert_html :bottom, "room_list", :partial => "room", :object => @room, :locals => { :folk => @folk }
+page.visual_effect :highlight, "room_#{@room.id}"
+page << "$('room_name').value = '';"
