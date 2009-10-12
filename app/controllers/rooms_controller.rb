@@ -36,7 +36,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html #{ render :nothing => true }
+        format.html { response.headers["Content-Type"] = "text/javascript; charset=utf-8" }
         format.xml  { render :xml => @room, :status => :created, :location => @room }
       else
         format.xml  { render :xml => @room.errors, :status => :unprocessable_entity }
