@@ -23,6 +23,8 @@
 	<%= f.hidden_field :folk_id %>
 <% end %>
 </div>
+
+<%= link_to "Return to Lobby", rooms_path + "?folk=#{@folk.id}" %>
 <%= periodically_call_remote(	:url => [messages_path, "?room_id=", @room.id, "&folk_id=", @folk.id].join,
  															:method => "get",
 															:frequency => 1 ) %>

@@ -22,4 +22,9 @@ describe "/rooms/show.html.erb" do
     response.should have_text(/Carlos/)
   end
   
+  it "renders a return to lobbie link" do
+    render
+    response.should have_text(/Return\ to\ Lobby/)
+  end
+  
 end
